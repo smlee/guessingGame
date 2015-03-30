@@ -1,0 +1,98 @@
+@font-face{
+    font-family: 'DINcondBold';
+    src: url('font/FF_DIN_Condensed_Bold.woff') format('woff');
+}
+
+body {
+    margin-top: 50px;
+}
+
+.content {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.title {
+    width: 300px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.title h1 {
+    margin: 0;
+    line-height: 52px;
+    font-size: 50px;
+    font-family: "HelveticaNeueBlack", "HelveticaNeue-Black", "Helvetica Neue Black", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosBold', "Arial Black", sans-serif; font-weight:800; font-stretch:normal;
+    text-shadow:
+    3px 3px 0 rgba(102, 102, 102, 0.60),
+    -1px -1px 0 rgba(102, 102, 102, 0.60),
+    1px -1px 0 rgba(102, 102, 102, 0.60),
+    -1px 1px 0 rgba(102, 102, 102, 0.60),
+    1px 1px 0 rgba(102, 102, 102, 0.60);
+}
+.mag {
+    position: absolute;
+    margin-left: 190px;
+    font-size: 150px;
+    color: rgb(172, 172, 172);
+    text-shadow:
+    3px 3px 0 #666666,
+    -1px -1px 0 #666,
+    1px -1px 0 #666,
+    -1px 1px 0 #666,
+    1px 1px 0 #666;
+    z-index: -1;
+}
+#message {
+    margin-top: 20px;
+    width: 500px;
+    padding: 5px 10px;
+    text-align: center;
+}
+.main-content {
+    text-align: center;
+}
+
+.guessInput {
+    width: 240px;
+    font: 120px DINcondBold;
+    text-align: center;
+    padding: 5px 10px;
+    border-style: none;
+    border-bottom: 5px solid #000;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.guessInput:focus {
+    border-style: none;
+    border-bottom: 10px solid #000;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+#submit {
+    width: 240px;
+}
+
+.options {
+    margin-top: 15px;
+    text-align: center;
+    width: 500px;
+}
+
+.options button:first-child{
+    margin-right:18px;
+}
+
+.guesses{
+    margin-top: 10px;
+    width: 500px;
+    text-align: center;
+}
+
+.guesses h1{
+    margin: 0;
+}
