@@ -83,7 +83,7 @@ $(function() {
     $.contra(function () {
         begin.numOfTries += 10;
         $('.guesses h1').text(begin.numOfTries);
-        console.log("You've unlocked the easter egg.")
+        $('#message').text("You've unlocked the easter egg.")
     })
 });
 
