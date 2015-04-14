@@ -6,7 +6,10 @@
 body {
     margin-top: 50px;
 }
-
+#the h1 {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 100;
+}
 .content {
     width: 500px;
     margin: 0 auto;
@@ -20,8 +23,8 @@ body {
 
 .title h1 {
     margin: 0;
-    line-height: 52px;
-    font-size: 50px;
+    line-height: 46px;
+    font-size: 42px;
     font-family: "HelveticaNeueBlack", "HelveticaNeue-Black", "Helvetica Neue Black", "HelveticaNeue", "Helvetica Neue", 'TeXGyreHerosBold', "Arial Black", sans-serif; font-weight:800; font-stretch:normal;
     text-shadow:
     3px 3px 0 rgba(102, 102, 102, 0.60),
@@ -32,7 +35,8 @@ body {
 }
 .mag {
     position: absolute;
-    margin-left: 190px;
+    top: 40px;
+    margin-left: 170px;
     font-size: 150px;
     color: rgb(172, 172, 172);
     text-shadow:
