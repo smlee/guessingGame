@@ -7,6 +7,7 @@ function initializeGame(){
     this.guessAnswer = Math.floor(Math.random()*99+1);
     this.guessArray = [];
     this.numOfTries = 5;
+    this.hintClick = 0;
 
     //Messages
     this.message = {
@@ -41,7 +42,7 @@ initializeGame.prototype.isValidGuess = function(num){
     }
     for(var i=0;i<this.guessArray.length;i++)
         if(this.guessArray[i] == num) {
-            console.log(this.message.repeat);
+            $('#message').removeClass('alert-danger').addClass("alert alert-warning").text(this.message.repeat);
             return false;
         }
     return true;
@@ -75,7 +76,6 @@ initializeGame.prototype.checkGuess = function(){
         this.guessArray.push(currentGuess);
         $('#message').text(this.messageHandler(currentGuess));
         //console.log(this.messageHandler(currentGuess));
-        this.clear();
         $('.guesses h1').text(this.numOfTries);
         //console.log(this.guessArray);
         if(this.numOfTries === 0) {
@@ -83,10 +83,31 @@ initializeGame.prototype.checkGuess = function(){
             $('#myModal').modal('show');
             $('#myModalLabel').text("Sorry :'(");
             $('.modal-body').text(this.message.lost);
-            this.clear();
         }
     }
+    this.clear();
 };
+
+initializeGame.prototype.giveHint = function() {
+    $('#myModal').modal('show');
+    $('#myModalLabel').text("Hint");
+    switch (this.hintClick) {
+        case 0:
+            if (this.guessAnswer % 2 == 0) $('.modal-body').text('The answer is an even number.');
+            else $('.modal-body').text('The answer is an odd number.');
+            this.hintClick +=1;
+            break;
+        case 1:
+            if (this.guessArray.length > 0)
+                $('.modal-body').text("Difference between the answer and your last guess is " +
+                    Math.abs(this.guessArray[this.guessArray.length-1] - this.guessAnswer));
+            else $('.modal-body').text("Guess a number before getting another hint");
+            break;
+        default:
+            break;
+    }
+};
+
 initializeGame.prototype.clear = function(){
     $('#guess').val("");
     $('#guess').focus();
