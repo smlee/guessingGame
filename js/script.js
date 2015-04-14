@@ -105,19 +105,18 @@ initializeGame.prototype.checkGuess = function(){
 };
 
 initializeGame.prototype.giveHint = function() {
-    $('#myModal').modal('show');
-    $('#myModalLabel').text("Hint");
     switch (this.hintClick) {
         case 0:
-            if (this.guessAnswer % 2 == 0) $('.modal-body').text('The answer is an even number.');
-            else $('.modal-body').text('The answer is an odd number.');
+            if (this.guessAnswer % 2 == 0) $('#message').text('The answer is an even number. Click Hint again for another hint.');
+            else $('#message').text('The answer is an odd number. Click Hint again for another hint.');
             this.hintClick +=1;
             break;
         case 1:
             if (this.guessArray.length > 0)
-                $('.modal-body').text("Difference between the answer and your last guess is " +
-                    Math.abs(this.guessArray[this.guessArray.length-1] - this.guessAnswer));
-            else $('.modal-body').text("Guess a number before getting another hint");
+                $('#message').html("<p> Difference between the answer and your last guess is " +
+                    Math.abs(this.guessArray[this.guessArray.length-1] - this.guessAnswer) +
+                    "<p>"+this.guesses());
+            else $('#message').text("Guess a number before getting another hint");
             break;
         default:
             break;
@@ -146,17 +145,6 @@ $('#guess').keypress(function(e) {
     if (e.which == 13)
         begin.checkGuess();
 });
-//After the user submits a guess, indicate whether their guess is 'hot' or 'cold'. Let the user know if they need to guess higher or lower.
-//Allow the user to guess only a certain amount of times. When they run out of guesses let them know the game is over.
-//Feel free to use prompts to get user input on your first version.
-//For the final version of your project, you'll need to create an HTML-based interface for getting user inputs and giving feedback on guesses.
-//Validate inputs that they are real numbers between 1-100.
-//Create a new game button that resets the game.
-//Store all of the guesses and create a way to check if the guess is a repeat.
-//Track the user's previous guess. Let them know if they are getting “hotter” or “colder” based on their previous guess.
-//Create a button that provides the answer (Give me a Hint).
-//Submit the guess by pressing enter or clicking the submit button.
-//After a user guesses a number keep a visual list of Hot and Cold answers that the user
 
 
 
