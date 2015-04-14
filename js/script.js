@@ -16,26 +16,27 @@ function initializeGame(){
         hot: "You're hot. Guess ", //10
         very_hot: "You're very hot. Guess ", //5
         repeat: "You already tried this number. Guess again!",
-        empty: "Enter a number.",
+        empty: "Enter a number between 1 and 100.",
         nan: "This is not a valid number.",
         invalid: "Please pick between 1 and 100",
         won: "YOU WON!",
         lost: "Better luck next time!"
     };
+    $('#message').removeClass('alert-danger alert-warning').text('Guess a number between 1 and 100.');
     $('.guesses h1').text(this.numOfTries);
     $('#guess').focus();
-    console.log(this.guessAnswer);
+    //console.log(this.guessAnswer);
 }
 
 initializeGame.prototype.isValidGuess = function(num){
     if (num == '') {
-        $('#message').removeClass('alert-danger').addClass("alert alert-warning").text((this.message.empty));
+        $('#message').removeClass('alert-danger').addClass("alert alert-warning").text(this.message.empty);
         return false;
     } else if (isNaN(num)){
-        console.log(this.message.nan);
+        $('#message').removeClass('alert-danger').addClass("alert alert-warning").text(this.message.nan);
         return false;
     } else if (num > 100 || num < 1) {
-        console.log(this.message.invalid);
+        $('#message').removeClass('alert-danger').addClass("alert alert-warning").text(this.message.invalid);
         return false;
     }
     for(var i=0;i<this.guessArray.length;i++)
@@ -49,8 +50,12 @@ initializeGame.prototype.isValidGuess = function(num){
 initializeGame.prototype.messageHandler = function(guess) {
     var diff = Math.abs(guess - this.guessAnswer);
     $('#message').removeClass('alert-warning').addClass("alert alert-danger");
-    if (diff == 0)
+    if (diff == 0) {
+        $('#myModal').modal('show');
+        $('#myModalLabel').text("Congrats!");
+        $('.modal-body').text(this.message.won);
         return this.message.won;
+    }
     else if (diff <= 5)
         return guess > this.guessAnswer ? this.message.very_hot + "lower." : this.message.very_hot + "higher.";
     else if(diff <= 10)
@@ -65,20 +70,27 @@ initializeGame.prototype.messageHandler = function(guess) {
 initializeGame.prototype.checkGuess = function(){
     var currentInput = $('#guess:text').val();
     var currentGuess = Number(currentInput);
-    console.log(currentGuess);
-    if (this.isValidGuess(currentInput)) {
+    if (this.isValidGuess(currentInput) && this.numOfTries > 0) {
+        this.numOfTries -= 1;
         this.guessArray.push(currentGuess);
         $('#message').text(this.messageHandler(currentGuess));
-        console.log(this.messageHandler(currentGuess));
-        $('#guess').val("");
-        $('#guess').focus();
-        this.numOfTries -= 1;
+        //console.log(this.messageHandler(currentGuess));
+        this.clear();
         $('.guesses h1').text(this.numOfTries);
-        console.log(this.guessArray);
+        //console.log(this.guessArray);
+        if(this.numOfTries === 0) {
+            $('#message').text(this.message.lost);
+            $('#myModal').modal('show');
+            $('#myModalLabel').text("Sorry :'(");
+            $('.modal-body').text(this.message.lost);
+            this.clear();
+        }
     }
-    console.log($('.guesses h1').text());
 };
-
+initializeGame.prototype.clear = function(){
+    $('#guess').val("");
+    $('#guess').focus();
+};
 $(function() {
     $.contra(function () {
         begin.numOfTries += 10;
@@ -88,6 +100,11 @@ $(function() {
 });
 
 var begin = new initializeGame();
+
+function restart(){
+    begin = new initializeGame();
+    $('#myModal').modal('hide');
+};
 $('#guess').keypress(function(e) {
     if (e.which == 13)
         begin.checkGuess();
