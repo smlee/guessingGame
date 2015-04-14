@@ -50,23 +50,39 @@ initializeGame.prototype.isValidGuess = function(num){
 
 initializeGame.prototype.messageHandler = function(guess) {
     var diff = Math.abs(guess - this.guessAnswer);
-    $('#message').removeClass('alert-warning').addClass("alert alert-danger");
+    $('#message').removeClass('alert-warning alert-danger alert-info');
     if (diff == 0) {
         $('#myModal').modal('show');
         $('#myModalLabel').text("Congrats!");
         $('.modal-body').text(this.message.won);
         return this.message.won;
     }
-    else if (diff <= 5)
+    else if (diff <= 5) {
+        $('#message').addClass("alert alert-danger");
         return guess > this.guessAnswer ? this.message.very_hot + "lower." : this.message.very_hot + "higher.";
-    else if(diff <= 10)
+    }
+    else if(diff <= 10) {
+        $('#message').addClass("alert alert-danger");
         return guess > this.guessAnswer ? this.message.hot + "lower." : this.message.hot + "higher.";
-    else if (diff <=15)
+    }
+    else if (diff <=15) {
+        $('#message').addClass("alert alert-warning");
         return guess > this.guessAnswer ? this.message.warm + "lower." : this.message.warm + "higher.";
-    else if (diff <=20)
+    }
+    else if (diff <=20) {
+        $('#message').addClass("alert alert-info");
         return guess > this.guessAnswer ? this.message.cold + "lower." : this.message.cold + "higher.";
+    }
+    $('#message').addClass("alert alert-info");
     return guess > this.guessAnswer ? this.message.very_cold + "lower." : this.message.very_cold + "higher.";
 };
+
+initializeGame.prototype.guesses = function(){
+    var guesses =' Your guesses: ';
+    for (var i =0; i<this.guessArray.length; i++)
+        guesses += this.guessArray[i] + " ";
+    return guesses;
+}
 
 initializeGame.prototype.checkGuess = function(){
     var currentInput = $('#guess:text').val();
@@ -74,7 +90,7 @@ initializeGame.prototype.checkGuess = function(){
     if (this.isValidGuess(currentInput) && this.numOfTries > 0) {
         this.numOfTries -= 1;
         this.guessArray.push(currentGuess);
-        $('#message').text(this.messageHandler(currentGuess));
+        $('#message').html("<p>" + this.messageHandler(currentGuess) + "<p>" +this.guesses());
         //console.log(this.messageHandler(currentGuess));
         $('.guesses h1').text(this.numOfTries);
         //console.log(this.guessArray);
